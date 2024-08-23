@@ -19,6 +19,8 @@ class Game {
 
     bool running();
 
+    static SDL_Renderer *renderer;
+
     private:
     int prevTicks;
     int ticks;
@@ -26,7 +28,6 @@ class Game {
     int count = 0;
     bool isRunning;
     SDL_Window *window;
-    SDL_Renderer *renderer;
 };
 
 #endif

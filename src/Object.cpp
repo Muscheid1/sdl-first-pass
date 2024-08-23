@@ -1,9 +1,8 @@
 #include "Object.h"
 #include "Texture.h"
 
-Object::Object(const char* textureSheet, SDL_Renderer* ren, int x, int y) {
-    renderer = ren;
-    texture = Texture::loadTexture(textureSheet, renderer);
+Object::Object(const char* textureSheet, int x, int y) {
+    texture = Texture::loadTexture(textureSheet);
 
     xPos = x;
     yPos = y;
@@ -14,31 +13,8 @@ Object::~Object() {
 }
 
 void Object::update() {
-    if (right) {
-        xPos++;
-    }
-    else {
-        xPos--;
-    }
-    if (down) {
-        yPos++;
-    }
-    else {
-        yPos--;
-    }
-
-    if (xPos == 800 - 180) {
-        right = false;
-    }
-    if (xPos == 0) {
-        right = true;
-    }
-    if (yPos == 600 - 180) {
-        down = false;
-    }
-    if (yPos == 0) {
-        down = true;
-    }
+    xPos++;
+    yPos++;
 
     srcRect.w = 360;
     srcRect.h = 360;
@@ -52,5 +28,5 @@ void Object::update() {
 }
 
 void Object::render() {
-    SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
+    SDL_RenderCopy(Game::renderer, texture, &srcRect, &dstRect);
 }

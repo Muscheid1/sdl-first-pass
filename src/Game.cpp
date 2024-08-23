@@ -2,7 +2,10 @@
 #include "Texture.h"
 #include "Object.h"
 
-Object* player;
+Object* mario;
+Object* luigi;
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {
 
@@ -39,7 +42,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    player = new Object("assets/mario.png", renderer, 0, 0);
+    mario = new Object("assets/mario.png", 0, 0);
+    luigi = new Object("assets/luigi.png", 300, 300);
 
     prevTicks = 0;
     ticks = 0;
@@ -72,12 +76,14 @@ void Game::update() {
         prevTicks = currTicks;
     }
 
-    player->update();
+    mario->update();
+    luigi->update();
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    player->render();
+    mario->render();
+    luigi->render();
     SDL_RenderPresent(renderer);
 }
 

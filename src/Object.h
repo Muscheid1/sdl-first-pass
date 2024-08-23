@@ -3,7 +3,7 @@
 
 class Object {
     public:
-    Object(const char* textureSheet, SDL_Renderer* ren, int x, int y);
+    Object(const char* textureSheet, int x, int y);
     ~Object();
 
     void update();
@@ -12,11 +12,7 @@ class Object {
     private:
     int xPos;
     int yPos;
-
-    bool right = true;
-    bool down = true;
     
     SDL_Texture* texture;
     SDL_Rect srcRect, dstRect;
-    SDL_Renderer* renderer;
 };
