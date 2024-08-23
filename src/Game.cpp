@@ -1,9 +1,11 @@
 #include "Game.h"
 #include "Texture.h"
 #include "Object.h"
+#include "Map.h"
 
 Object* mario;
 Object* luigi;
+Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -45,6 +47,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     mario = new Object("assets/mario.png", 0, 0);
     luigi = new Object("assets/luigi.png", 300, 300);
 
+    map = new Map();
+    map->loadMap(map->lvl1);
+
     prevTicks = 0;
     ticks = 0;
 
@@ -82,6 +87,7 @@ void Game::update() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
+    map->drawMap();
     mario->render();
     luigi->render();
     SDL_RenderPresent(renderer);
