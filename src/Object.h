@@ -12,6 +12,9 @@ class Object {
     private:
     int xPos;
     int yPos;
+
+    bool right = true;
+    bool down = true;
     
     SDL_Texture* texture;
     SDL_Rect srcRect, dstRect;

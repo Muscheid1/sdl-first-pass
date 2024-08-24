@@ -10,8 +10,8 @@ Map::Map() {
     src.y = 0;
     src.h = 16;
     src.w = 16;
-    dst.w = 16;
-    dst.h = 16;
+    dst.w = 32;
+    dst.h = 32;
 }
 
 Map::~Map() {
@@ -29,8 +29,8 @@ void Map::loadMap(int arr[20][25]) {
 void Map::drawMap() {
     for (int row = 0; row < 20; row++) {
         for (int col = 0; col < 25; col++) {
-            dst.y = row * 16;
-            dst.x = col * 16;
+            dst.y = row * 32;
+            dst.x = col * 32;
             switch (map[row][col]) {
                 case 0:
                     SDL_RenderCopy(Game::renderer, dirt, &src, &dst);

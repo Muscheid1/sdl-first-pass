@@ -13,11 +13,34 @@ Object::~Object() {
 }
 
 void Object::update() {
-    xPos++;
-    yPos++;
+    if (xPos >= 800 - 384 / 2) {
+        right = false;
+    }
+    else if (xPos <= 0) {
+        right = true;
+    }
+    if (yPos >= 640 - 384 / 2) {
+        down = false;
+    }
+    else if (yPos <= 0) {
+        down = true;
+    }
 
-    srcRect.w = 360;
-    srcRect.h = 360;
+    if (right) {
+        xPos += 2;
+    }
+    else {
+        xPos -= 2;
+    }
+    if (down) {
+        yPos += 2;
+    }
+    else {
+        yPos -= 2;
+    }
+
+    srcRect.w = 384;
+    srcRect.h = 384;
     srcRect.x = 0;
     srcRect.y = 0;
 

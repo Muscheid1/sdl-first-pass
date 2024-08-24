@@ -2,12 +2,16 @@
 #include "Texture.h"
 #include "Object.h"
 #include "Map.h"
+#include "ECS.h"
+#include "Components.h"
 
 Object* mario;
-Object* luigi;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer = manager.addEntity();
 
 Game::Game() {
 
@@ -44,8 +48,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    mario = new Object("assets/mario.png", 0, 0);
-    luigi = new Object("assets/luigi.png", 300, 300);
+    mario = new Object("assets/new-mario.png", 0, 0);
 
     map = new Map();
     map->loadMap(map->lvl1);
@@ -54,6 +57,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     ticks = 0;
 
     isRunning = true;
+
+    newPlayer.addComponent<PositionComponent>();
+    newPlayer.getComponent<PositionComponent>().setPos(200, 200);
 }
 
 void Game::handleEvents() {
@@ -82,14 +88,14 @@ void Game::update() {
     }
 
     mario->update();
-    luigi->update();
+    manager.update();
+    std::cout << newPlayer.getComponent<PositionComponent>().getX() << ", " << newPlayer.getComponent<PositionComponent>().getY() << std::endl;
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     map->drawMap();
     mario->render();
-    luigi->render();
     SDL_RenderPresent(renderer);
 }
 
