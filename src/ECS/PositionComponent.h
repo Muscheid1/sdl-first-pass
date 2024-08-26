@@ -1,8 +1,7 @@
 #pragma once
-#include "ECS.h"
+#include "Components.h"
 
-class PositionComponent : public Component
-{
+class PositionComponent : public Component {
     private:
     int xPos;
     int yPos;

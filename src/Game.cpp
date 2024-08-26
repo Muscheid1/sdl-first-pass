@@ -2,8 +2,7 @@
 #include "Texture.h"
 #include "Object.h"
 #include "Map.h"
-#include "ECS.h"
-#include "Components.h"
+#include "ECS/Components.h"
 
 Object* mario;
 Map* map;
