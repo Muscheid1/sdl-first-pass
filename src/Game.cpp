@@ -6,6 +6,7 @@
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
 
 Manager manager;
 auto& player = manager.addEntity();
@@ -53,12 +54,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     isRunning = true;
 
-    player.addComponent<PositionComponent>(0, 0);
+    player.addComponent<TransformComponent>(0, 0);
     player.addComponent<SpriteComponent>("assets/new-mario.png", 382, 382, 192, 192);
+    player.addComponent<ControllerComponent>();
 }
 
 void Game::handleEvents() {
-    SDL_Event event;
     SDL_PollEvent(&event);
 
     switch(event.type) {
@@ -83,10 +84,6 @@ void Game::update() {
     }
     manager.refresh();
     manager.update();
-
-    if (player.getComponent<PositionComponent>().getX() == 100) {
-        player.getComponent<SpriteComponent>().setTexture("assets/mario.png", 360, 360, 180, 180);
-    }
 }
 
 void Game::render() {
