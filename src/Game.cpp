@@ -1,16 +1,14 @@
 #include "Game.h"
 #include "Texture.h"
-#include "Object.h"
 #include "Map.h"
 #include "ECS/Components.h"
 
-Object* mario;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
 Manager manager;
-auto& newPlayer = manager.addEntity();
+auto& player = manager.addEntity();
 
 Game::Game() {
 
@@ -47,8 +45,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    mario = new Object("assets/new-mario.png", 0, 0);
-
     map = new Map();
     map->loadMap(map->lvl1);
 
@@ -57,8 +53,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     isRunning = true;
 
-    newPlayer.addComponent<PositionComponent>();
-    newPlayer.getComponent<PositionComponent>().setPos(200, 200);
+    player.addComponent<PositionComponent>(0, 0);
+    player.addComponent<SpriteComponent>("assets/new-mario.png", 382, 382, 192, 192);
 }
 
 void Game::handleEvents() {
@@ -85,16 +81,18 @@ void Game::update() {
         frames = 0;
         prevTicks = currTicks;
     }
-
-    mario->update();
+    manager.refresh();
     manager.update();
-    std::cout << newPlayer.getComponent<PositionComponent>().getX() << ", " << newPlayer.getComponent<PositionComponent>().getY() << std::endl;
+
+    if (player.getComponent<PositionComponent>().getX() == 100) {
+        player.getComponent<SpriteComponent>().setTexture("assets/mario.png", 360, 360, 180, 180);
+    }
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     map->drawMap();
-    mario->render();
+    manager.draw();
     SDL_RenderPresent(renderer);
 }
 

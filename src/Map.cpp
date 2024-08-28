@@ -33,13 +33,13 @@ void Map::drawMap() {
             dst.x = col * 32;
             switch (map[row][col]) {
                 case 0:
-                    SDL_RenderCopy(Game::renderer, dirt, &src, &dst);
+                    Texture::draw(dirt, src, dst);
                     break;
                 case 1:
-                    SDL_RenderCopy(Game::renderer, grass, &src, &dst);
+                    Texture::draw(grass, src, dst);
                     break;
                 case 2:
-                    SDL_RenderCopy(Game::renderer, water, &src, &dst);
+                    Texture::draw(water, src, dst);
                 default:
                     break;
             }
