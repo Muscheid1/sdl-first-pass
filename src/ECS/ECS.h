@@ -51,7 +51,7 @@ class Entity {
     void destroy() {active = false;}
 
     template <typename T> bool hasComponent() const {
-        return componentBitSet[getComponentTypeID<T>];
+        return componentBitSet[getComponentTypeID<T>()];
     }
 
     template <typename T, typename... TArgs>
@@ -69,7 +69,7 @@ class Entity {
     }
 
     template<typename T> T& getComponent() const {
-        auto ptr(componentArray[getComponentTypeID<T>()]);
+        auto ptr(componentArray[getComponentTypeID<T>()]); //Added parentheses after <T>, not sure about it
         return *static_cast<T*>(ptr);
     }
 

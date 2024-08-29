@@ -55,7 +55,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     isRunning = true;
 
     player.addComponent<TransformComponent>(0, 0);
-    player.addComponent<SpriteComponent>("assets/new-mario.png", 382, 382, 192, 192);
+    player.addComponent<SpriteComponent>("assets/mario.png", 360, 360, 90, 90);
     player.addComponent<ControllerComponent>();
 }
 
@@ -82,6 +82,7 @@ void Game::update() {
         frames = 0;
         prevTicks = currTicks;
     }
+
     manager.refresh();
     manager.update();
 }
