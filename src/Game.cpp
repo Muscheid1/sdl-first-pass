@@ -44,10 +44,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return;
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
     map = new Map();
-    map->loadMap(map->lvl1);
+    map->loadMap("maps/lvl1.csv");
 
     prevTicks = 0;
     ticks = 0;
@@ -55,7 +55,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     isRunning = true;
 
     player.addComponent<TransformComponent>(0, 0);
-    player.addComponent<SpriteComponent>("assets/mario.png", 360, 360, 90, 90);
+    player.addComponent<SpriteComponent>("assets/ball.png", 16, 16, 64, 64);
     player.addComponent<ControllerComponent>();
 }
 

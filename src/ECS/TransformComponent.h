@@ -9,19 +9,15 @@ class TransformComponent : public Component {
     Vector2D position;
     Vector2D velocity;
 
-    int speed = 1;
-    float friction = 0.02;
-    float stopTolerance = 0.03;
-    float gravity = 0.06;
-    bool horizontalPressed;
-    bool verticalPressed;
+    float speed = 2.0;
+    float friction = 0.005;
+    float bounce = 0.9;
+    float gravity = 0.18;
     
 
     TransformComponent() {
         position.x = 0;
         position.y = 0;
-        horizontalPressed = false;
-        verticalPressed = false;
     }
 
     TransformComponent(float x, float y) {
@@ -37,51 +33,32 @@ class TransformComponent : public Component {
 
         //Window boundary hits
         if (position.x <= 0.0) {
-            velocity.x *= -1.0;
+            velocity.x *= -bounce;
             position.x = 0.0;
         }
-        else if (position.x >= 710.0) {
-            velocity.x *= -1.0;
-            position.x = 710.0;
+        else if (position.x >= 1856.0) {
+            velocity.x *= -bounce;
+            position.x = 1856.0;
         }
         if (position.y <= 0.0) {
-            velocity.y *= -1.0;
+            velocity.y *= -bounce;
             position.y = 0.0;
         }
-        else if (position.y >= 550.0) {
-            velocity.y *= -1.0;
-            position.y = 550.0;
+        else if (position.y >= 1016.0) {
+            velocity.y *= -bounce;
+            position.y = 1016.0;
         }
 
         //Friction
-        if (velocity.x < 0.0) {
-            velocity.x += friction;
+        if (position.y > 1015.0) {
+            velocity.x -= velocity.x * friction * 4.0;
         }
-        else if (velocity.x > 0.0) {
-            velocity.x -= friction;
+        else {
+            velocity.x -= velocity.x * friction;
         }
-
-        if (velocity.y < 0.0) {
-            velocity.y += friction;
-        }
-        else if (velocity.y > 0.0) {
-            velocity.y -= friction;
-        }
+        velocity.y -= velocity.y * friction;
 
         //Gravity
         velocity.y += gravity;
-
-
-        //Full stop
-        if (!horizontalPressed && abs(velocity.x) < stopTolerance) {
-            velocity.x = 0.0;
-        }
-        if (!verticalPressed && velocity.y > 0.0 && position.y > 549.0 && velocity.y < gravity * 1.1) {
-            velocity.y = 0.0;
-        }
-
-        std::cout << velocity << std::endl;
     }
-
-
 };

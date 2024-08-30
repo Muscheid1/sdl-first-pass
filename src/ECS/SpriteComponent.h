@@ -16,6 +16,10 @@ class SpriteComponent : public Component
             setTexture(path, srcWidth, srcHeight, destWidth, destHeight);
         }
 
+        ~SpriteComponent() {
+            SDL_DestroyTexture(texture);
+        }
+
         void setTexture(const char* path, int srcWidth, int srcHeight, int destWidth, int destHeight) {
             texture = Texture::loadTexture(path);
             srcRect.w = srcWidth;

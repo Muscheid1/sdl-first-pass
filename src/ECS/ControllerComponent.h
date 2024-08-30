@@ -9,6 +9,8 @@ class ControllerComponent : public Component
 
     const Uint8* keystates = SDL_GetKeyboardState(NULL); 
 
+    float acceleration = 0.3;
+
     void init() override {
         transform = &entity->getComponent<TransformComponent>();
     }
@@ -17,24 +19,37 @@ class ControllerComponent : public Component
         //transform->velocity.x = 0;
         //transform->velocity.y = 0;
 
-        transform->horizontalPressed = false;
-        transform->verticalPressed = false;
-
         if (keystates[SDL_SCANCODE_W]) {
-            transform->velocity.y -= 0.1;
-            transform->verticalPressed = true;
+            if (keystates[SDL_SCANCODE_A] || keystates[SDL_SCANCODE_D]) {
+                transform->velocity.y -= acceleration * sqrt(2) / 2.0; //Make this constant
+            }
+            else {
+                transform->velocity.y -= acceleration;
+            }
         }
         if (keystates[SDL_SCANCODE_S]) {
-            transform->velocity.y += 0.1;
-            transform->verticalPressed = true;
+            if (keystates[SDL_SCANCODE_A] || keystates[SDL_SCANCODE_D]) {
+                transform->velocity.y += acceleration * sqrt(2) / 2.0;
+            }
+            else {
+                transform->velocity.y += acceleration;
+            }
         }
         if (keystates[SDL_SCANCODE_A]) {
-            transform->velocity.x -= 0.1;
-            transform->horizontalPressed  = true;
+            if (keystates[SDL_SCANCODE_W] || keystates[SDL_SCANCODE_S]) {
+                transform->velocity.x -= acceleration * sqrt(2) / 2.0;
+            }
+            else {
+                transform->velocity.x -= acceleration;
+            }
         }
         if (keystates[SDL_SCANCODE_D]) {
-            transform->velocity.x += 0.1;
-            transform->horizontalPressed  = true;
+            if (keystates[SDL_SCANCODE_W] || keystates[SDL_SCANCODE_S]) {
+                transform->velocity.x += acceleration * sqrt(2) / 2.0;
+            }
+            else {
+                transform->velocity.x += acceleration;
+            }
         }
     }
 };

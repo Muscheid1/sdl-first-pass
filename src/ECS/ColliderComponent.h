@@ -7,7 +7,7 @@ class ColliderComponent : public Component {
     int x;
 
     private:
-    //SDL_Rect collider;
+    SDL_Rect collider;
     std::string tag;
 
     TransformComponent* transform;
