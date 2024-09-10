@@ -22,41 +22,56 @@ Game::~Game() {
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
     isRunning = false;
 
+
+    //Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << "SDL Initialization Failed" << std::endl;
         return;
     }
 
+    //Flags
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
 
+    //Window
     window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
     if (!window) {
         std::cout << "Window Creation Failed" << std::endl;
         return;
     }
 
+    //Renderer
     renderer = SDL_CreateRenderer(window, -1, 0);
     if (!renderer) {
         std::cout << "Renderer Creation Failed" << std::endl;
         return;
     }
 
+    //Center viewport vertically
+    int windowWidth, windowHeight;
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+    SDL_Rect viewport = {0, (windowHeight - height) / 2, width, height};
+    SDL_RenderSetViewport(renderer, &viewport);
+
+    //Black window background
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
+    //Map and levels
     map = new Map();
     map->loadMap("maps/lvl1.csv");
 
+    //For framerate tracking
     prevTicks = 0;
     ticks = 0;
 
-    isRunning = true;
-
-    player.addComponent<TransformComponent>(0, 0);
+    //Entity creation
+    player.addComponent<TransformComponent>(0, 0);  
     player.addComponent<SpriteComponent>("assets/ball.png", 16, 16, 64, 64);
     player.addComponent<ControllerComponent>();
+
+    isRunning = true;
 }
 
 void Game::handleEvents() {

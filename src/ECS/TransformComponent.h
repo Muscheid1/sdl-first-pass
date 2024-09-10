@@ -2,6 +2,7 @@
 #include "Components.h"
 #include "../Vector2D.h"
 #include <cmath>
+#include <algorithm>
 
 class TransformComponent : public Component {
     public:
@@ -13,6 +14,7 @@ class TransformComponent : public Component {
     float friction = 0.005;
     float bounce = 0.9;
     float gravity = 0.18;
+    float mousePull = 100.0;
     
 
     TransformComponent() {
@@ -60,5 +62,28 @@ class TransformComponent : public Component {
 
         //Gravity
         velocity.y += gravity;
+
+
+        /*
+        //Mouse
+        int mouseX;
+        int mouseY;
+        SDL_GetMouseState(&mouseX, &mouseY);
+
+        if (mouseX > position.x) {
+            velocity.x += std::min(0.3, mousePull / pow(mouseX - position.x, 2.0));
+        }
+        else if (mouseX < position.x){ 
+            velocity.x -= std::min(0.3, mousePull / pow(mouseX - position.x, 2.0));
+        }
+        if (mouseY > position.y) {
+            velocity.y += std::min(0.3, mousePull / pow(mouseY - position.y, 2.0));
+        }
+        else if (mouseY < position.y) {
+            velocity.y -= std::min(0.3, mousePull / pow(mouseY - position.y, 2.0));
+        }
+
+        std::cout << mouseX << "," << mouseY << std::endl;
+        */
     }
 };

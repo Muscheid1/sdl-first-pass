@@ -1,6 +1,6 @@
 #include "Game.h"
 
-int main() {
+int main() { //WinMain int argc, char* argv[]
     Game *game = new Game();
 
     const int FPS = 60;

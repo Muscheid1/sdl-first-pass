@@ -1,0 +1,22 @@
+# Directories
+SRC_DIR = src
+BUILD_DIR = build/debug
+
+# Compiler settings
+CC = x86_64-w64-mingw32-g++
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_NAME = play.exe
+
+# Include and Library paths (adjust for Windows)
+INCLUDE_PATHS = -I/Users/grant/Downloads/SDL2-2.30.6/x86_64-w64-mingw32/include -I/Users/grant/Downloads/SDL2_image-2.8.2/x86_64-w64-mingw32/include
+LIBRARY_PATHS = -L/Users/grant/Downloads/SDL2-2.30.6/x86_64-w64-mingw32/lib -L/Users/grant/Downloads/SDL2_image-2.8.2/x86_64-w64-mingw32/lib
+
+# Compiler and linker flags
+COMPILER_FLAGS = -std=c++11 -Wall -O0 -g
+LINKER_FLAGS = -lSDL2 -lSDL2_image -static-libgcc -static-libstdc++
+
+all:
+	$(CC) $(COMPILER_FLAGS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(SRC_FILES) $(LINKER_FLAGS) -o $(BUILD_DIR)/$(OBJ_NAME)
+
+clean:
+	rm -f $(BUILD_DIR)/$(OBJ_NAME)

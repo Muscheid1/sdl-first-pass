@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "build",
-            "command": "make",
+            "command": "make -f makefile.mac",
             "args": [],
             "options": {
                 "cwd": "${workspaceFolder}"
