@@ -12,24 +12,25 @@ class SpriteComponent : public Component
     public:
 
         SpriteComponent() = default;
-        SpriteComponent(const char* path, int srcWidth, int srcHeight, int destWidth, int destHeight) {
-            setTexture(path, srcWidth, srcHeight, destWidth, destHeight);
+        SpriteComponent(const char* path) {
+            setTexture(path);
         }
 
         ~SpriteComponent() {
             SDL_DestroyTexture(texture);
         }
 
-        void setTexture(const char* path, int srcWidth, int srcHeight, int destWidth, int destHeight) {
+        void setTexture(const char* path) {
+            //Maybe check to destroy replaced texture
             texture = Texture::loadTexture(path);
-            srcRect.w = srcWidth;
-            srcRect.h = srcHeight;
-            destRect.w = destWidth;
-            destRect.h = destHeight;
         }
 
         void init() override {
             transform = &entity->getComponent<TransformComponent>();
+            srcRect.w = transform->width;
+            srcRect.h = transform->height;
+            destRect.w = transform->width * transform->scale;
+            destRect.h = transform->height * transform->scale;
         }
 
         void update() override {

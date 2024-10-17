@@ -68,7 +68,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     //Entity creation
     player.addComponent<TransformComponent>(0, 0);  
-    player.addComponent<SpriteComponent>("assets/ball.png", 16, 16, 64, 64);
+    player.addComponent<SpriteComponent>("assets/ball.png");
     player.addComponent<ControllerComponent>();
 
     isRunning = true;

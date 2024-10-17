@@ -1,6 +1,6 @@
 #include "Game.h"
 
-int main() { //WinMain int argc, char* argv[]
+int main() { //WinMain int argc, char* argv[]; consider using cmake for cross platform and distribution, as well as statically linked libraries
     Game *game = new Game();
 
     const int FPS = 60;

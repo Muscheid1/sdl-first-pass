@@ -10,6 +10,10 @@ class TransformComponent : public Component {
     Vector2D position;
     Vector2D velocity;
 
+    int height = 16;
+    int width = 16;
+    int scale = 4;
+
     float speed = 2.0;
     float friction = 0.005;
     float bounce = 0.9;
